@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Bart-Jan van Rossum" />
+
+<meta name="date" content="2021-07-15" />
+
+<title>An introduction to the isatabr package</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">An introduction to the isatabr package</h1>
+<h4 class="author">Bart-Jan van Rossum</h4>
+<h4 class="date">2021-07-15</h4>
+
+
+
+<div id="the-isatabr-package" class="section level1 unnumbered">
+<h1 class="unnumbered">The isatabr package</h1>
+<p>The isatabr package is developed as a easy-to-use package for reading, modifying and writing files in the Investigation/Study/Assay (ISA) Abstract Model of the metadata framework using the ISA tab-delimited (TAB) format.</p>
+<p>ISA is a metadata framework to manage an increasingly diverse set of life science, environmental and biomedical experiments that employ one or a combination of technologies. Built around the <strong>Investigation</strong> (the project context), <strong>Study</strong> (a unit of research) and <strong>Assay</strong> (analytical measurements) concepts, ISA helps you to provide rich descriptions of experimental metadata (i.e. sample characteristics, technology and measurement types, sample-to-data relationships) so that the resulting data and discoveries are reproducible and reusable.</p>
+</div>
+<div id="the-isa-tab-structure" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> The ISA tab structure</h1>
+<p>The ISA-Tab structure is described in full detail on <a href="https://isa-specs.readthedocs.io/en/latest/isatab.html" class="uri">the ISA-tab website</a>. The description below is mostly taken from there and slightly condensed when appropriate.</p>
+<p>ISA-Tab uses three types of file to capture the experimental metadata:</p>
+<ul>
+<li>Investigation file</li>
+<li>Study file</li>
+<li>Assay file (with associated data files)</li>
+</ul>
+<p>The Investigation file contains all the information needed to understand the overall goals and means used in an experiment; experimental steps (or sequences of events) are described in the Study and in the Assay file(s). For each Investigation file there may be one or more Studies defined with a corresponding Study file; for each Study there may be one or more Assays defined with corresponding Assay files.</p>
+<p>In order to facilitate identification of ISA-Tab component files, specific naming patterns should be followed:</p>
+<ul>
+<li>i_*.txt for identifying the Investigation file, e.g. i_investigation.txt</li>
+<li>s_*.txt for identifying Study file(s), e.g. s_gene_survey.txt</li>
+<li>a_*.txt for identifying Assay file(s), e.g. a_transcription.txt</li>
+</ul>
+<div id="the-investigation-file" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> The Investigation file</h2>
+<p>The Investigation file fulfills four needs:</p>
+<ol style="list-style-type: decimal">
+<li>to declare key entities, such as factors, protocols, which may be referenced in the other files;</li>
+<li>to track provenance of the terminologies (controlled vocabularies or ontologies) there are used, where applicable;</li>
+<li>to relate each Study file to an Investigation (this only becomes necessary when two or more Study files need to be grouped);</li>
+<li>to relate Assay files to Studies.</li>
+</ol>
+<p>An Investigation file is structured as a table with vertical headings along the first column, and corresponding values in the subsequent columns. The following section headings must appear in the Investigation file (in order), and the study block (headings from STUDY to STUDY CONTACTS) can be repeated, one block per study associated with the investigation.</p>
+<ul>
+<li>ONTOLOGY SOURCE REFERENCE</li>
+<li>INVESTIGATION</li>
+<li>INVESTIGATION PUBLICATIONS</li>
+<li>INVESTIGATION CONTACTS</li>
+<li>STUDY</li>
+<li>STUDY DESIGN DESCRIPTORS</li>
+<li>STUDY PUBLICATIONS</li>
+<li>STUDY FACTORS</li>
+<li>STUDY ASSAYS</li>
+<li>STUDY PROTOCOLS</li>
+<li>STUDY CONTACTS</li>
+</ul>
+<p>For a full description of all sections see the aforementioned <a href="https://isa-specs.readthedocs.io/en/latest/isatab.html">site</a>.</p>
+</div>
+<div id="the-study-file" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> The Study file</h2>
+<p>The Study file contains contextualizing information for one or more assays, for example; the subjects studied; their source(s); the sampling methodology; their characteristics; and any treatments or manipulations performed to prepare the specimens.</p>
+</div>
+<div id="the-assay-file" class="section level2" number="1.3">
+<h2 number="1.3"><span class="header-section-number">1.3</span> The Assay file</h2>
+<p>The Assay file represents a portion of the experimental graph (i.e., one part of the overall structure of the workflow); each Assay file must contain assays of the same type, defined by the type of measurement (e.g. gene expression) and the technology employed (e.g. DNA microarray). Assay-related information includes protocols, additional information relating to the execution of those protocols and references to data files (whether raw or derived).</p>
+</div>
+<div id="example-data" class="section level2" number="1.4">
+<h2 number="1.4"><span class="header-section-number">1.4</span> Example data</h2>
+<p>As an example for working with the <code>isatabr</code> package we will use the data set that accompanies <span class="citation">Atwell et al. (2010)</span>. The associated files are included in the package.</p>
+</div>
+</div>
+<div id="reading-files-in-the-isa-tab-format" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Reading files in the ISA-Tab format</h1>
+<p>ISA-Tab files can be stored in two different ways, either as separate files in a directory, or as .zip file containing the files. The example data is included in both ways in the package. Both formats can be read into <code>R</code> using the <code>readISATab</code> function.</p>
+<p>When reading ISA-Tab files from a directory, only the name of the directory, where the ISA-TAB files are located, needs to be specified.</p>
+<!-- isaObject1 \<- readISATab(path = file.path(system.file("extdata/Atwell", package = "isatabr"))) -->
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Read ISA-Tab files from directory.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>isaObject1 <span class="ot">&lt;-</span> <span class="fu">readISATab</span>(<span class="at">path =</span> <span class="fu">file.path</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/Atwell&quot;</span>, <span class="at">package =</span> <span class="st">&quot;isatabr&quot;</span>)))</span></code></pre></div>
+<p>When reading zipped files, both the directory, where the zip-file is located, and the name of the file need to be specified.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Read ISA-Tab files from directory.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>isaObject2 <span class="ot">&lt;-</span> <span class="fu">readISATab</span>(<span class="at">path =</span> <span class="fu">file.path</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="at">package =</span> <span class="st">&quot;isatabr&quot;</span>)),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">zipfile =</span> <span class="st">&quot;Atwell.zip&quot;</span>)</span></code></pre></div>
+<p>In both cases <code>readISATab</code> will automatically detect the Investigation, Study and Assay files assuming the naming conventions described in the previous section are followed. If this is not the case, the function will give an error indicating the problem. The imported ISA-Tab files are stored in an object of the S4 class <code>ISA</code>. Since the information is almost identical for reading files from a directory and zipped-files, the following sections will show the example for the files read from a directory only.</p>
+</div>
+<div id="accessing-and-updating-isa-objects." class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Accessing and updating ISA objects.</h1>
+<p>All information from the ISA-Tab files is stored within slots in the <code>ISA</code> object. The table below gives an overview of the different slots and a brief description of the information stored in the slot. For a more exhaustive description see <code>help(&quot;ISA&quot;)</code>. Note that an investigation may have multiple studies. Therefore, data concerning studies is stored in a <code>list</code> object, where one element in the <code>list</code> corresponds to one study. Likewise a study may consist of multiple assays and assay data is stored in a <code>list</code> object, where one element in the <code>list</code> corresponds to one assay.</p>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="26%" />
+<col width="61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Slot</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>path</td>
+<td><code>character</code></td>
+<td>path to the ISA-Tab files</td>
+</tr>
+<tr class="even">
+<td>iFileName</td>
+<td><code>character</code></td>
+<td>name of the investigation file</td>
+</tr>
+<tr class="odd">
+<td>oSR</td>
+<td><code>data.frame</code></td>
+<td>ONTOLOGY SOURCE REFERENCE section of investigation file</td>
+</tr>
+<tr class="even">
+<td>invest</td>
+<td><code>data.frame</code></td>
+<td>INVESTIGATION section of investigation file</td>
+</tr>
+<tr class="odd">
+<td>iPubs</td>
+<td><code>data.frame</code></td>
+<td>INVESTIGATION PUBLICATIONS section of investigation file</td>
+</tr>
+<tr class="even">
+<td>iContacts</td>
+<td><code>data.frame</code></td>
+<td>INVESTIGATION CONTACTS section of investigation file</td>
+</tr>
+<tr class="odd">
+<td>study</td>
+<td><code>list</code> of <code>data.frames</code></td>
+<td>STUDY sections of investigation file</td>
+</tr>
+<tr class="even">
+<td>sDD</td>
+<td><code>list</code> of <code>data.frames</code></td>
+<td>STUDY DESIGN DESCRIPTORS sections of investigation file</td>
+</tr>
+<tr class="odd">
+<td>sPubs</td>
+<td><code>list</code> of <code>data.frames</code></td>
+<td>STUDY PUBLICATIONS sections of investigation file</td>
+</tr>
+<tr class="even">
+<td>sFacts</td>
+<td><code>list</code> of <code>data.frames</code></td>
+<td>STUDY FACTORS sections of investigation file</td>
+</tr>
+<tr class="odd">
+<td>sAssays</td>
+<td><code>list</code> of <code>data.frames</code></td>
+<td>STUDY ASSAYS sections of investigation file</td>
+</tr>
+<tr class="even">
+<td>sProts</td>
+<td><code>list</code> of <code>data.frames</code></td>
+<td>STUDY PROTOCOLS sections of investigation file</td>
+</tr>
+<tr class="odd">
+<td>sContacts</td>
+<td><code>list</code> of <code>data.frames</code></td>
+<td>STUDY CONTACTS sections of investigation file</td>
+</tr>
+<tr class="even">
+<td>sFiles</td>
+<td><code>list</code> of <code>data.frames</code></td>
+<td>content of study files</td>
+</tr>
+<tr class="odd">
+<td>aFiles</td>
+<td><code>list</code> of <code>data.frames</code></td>
+<td>content of assay files</td>
+</tr>
+</tbody>
+</table>
+<p>All slots have corresponding functions for accessing and modifying information. The names of these access functions are the same as the slots they refer to, e.g. accessing the iFileName slot in an <code>ISA</code> object can be done using the <code>iFileName()</code> function. There is one exception to this. To prevent problems with the <code>path()</code> function, that already exists in quite some other packages, the path slot in an <code>ISA</code> object should be accessed using the <code>isaPath()</code> function.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Access path for isaObjects</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">isaPath</span>(isaObject1)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;C:\\Users\\rossu027\\AppData\\Local\\Temp\\RtmpygYYN5\\Rinst2394d6a49a1\\isatabr\\extdata\\Atwell&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">isaPath</span>(isaObject2)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;C:\\Users\\rossu027\\AppData\\Local\\Temp\\Rtmp6ZQbzc&quot;</span></span></code></pre></div>
+<p>The path for <code>isaObject1</code> shows the directory from which the files were read. As <code>isaObject2</code> was read directly for a zipped archive, the files were first extracted into a temporary folder and subsequently read from there. This temporary folder is shown as the path.</p>
+<p>The other slots are accessible in a similar way. Some more examples are shown below.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Access studies.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>isaStudies <span class="ot">&lt;-</span> <span class="fu">study</span>(isaObject1)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Print study names.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(isaStudies)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;GMI_Atwell_study&quot;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Access study descriptors.</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>isaSDD <span class="ot">&lt;-</span> <span class="fu">sDD</span>(isaObject1)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Shows study descriptors for study GMI_Atwell_study.</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>isaSDD<span class="sc">$</span>GMI_Atwell_study</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                                                Study Design Type</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 GWAS of 107 phenotypes in Arabidopsis thaliana inbred lines using ~250k SNPs in 199 accessions</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Study Design Type Term Accession Number Study Design Type Term Source REF</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                                    &lt;NA&gt;                              &lt;NA&gt;</span></span></code></pre></div>
+<p>It is not only possible to access the different slots in an <code>ISA</code> object, the slots can also be updated. As the access function, the update functions have the same name as the slots they refer to. As an example, let’s assume an error sneaked into the ONTOLOGY SOURCE REFERENCE section and we want to update one of the source versions.</p>
+<p>First have a look at the current content of the ONTOLOGY SOURCE REFERENCE section.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(isaOSR <span class="ot">&lt;-</span> <span class="fu">oSR</span>(isaObject1))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Term Source Name                                 Term Source File Term Source Version</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1              OBI       http://data.bioontology.org/ontologies/OBI                  23</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2              EFO       http://data.bioontology.org/ontologies/EFO                 118</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3               UO                http://purl.obolibrary.org/obo/UO                &lt;NA&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        NCBITaxon http://data.bioontology.org/ontologies/NCBITAXON                   6</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5               PO        http://data.bioontology.org/ontologies/PO                  10</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6              GMI                      http://gwas.gmi.oeaw.ac.at/                &lt;NA&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                          Term Source Description</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                                         Ontology for Biomedical Investigations</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                                                   Experimental Factor Ontology</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3                                                                  Unit Ontology</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 National Center for Biotechnology Information (NCBI) Organismal Classification</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                                                                 Plant Ontology</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6                                     Cataloque of Arabidopsis accessions at GMI</span></span></code></pre></div>
+<p>Now we update the version of the OBI ontology source from 23 to 24. Then we update the modified ontology source <code>data.frame</code> in the <code>ISA</code> object.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Update version number.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>isaOSR[<span class="dv">1</span>, <span class="st">&quot;Term Source Version&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">24</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Update oSR in ISA object.</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">oSR</span>(isaObject1) <span class="ot">&lt;-</span> isaOSR</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Check the updated oSR.</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">oSR</span>(isaObject1)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Term Source Name                                 Term Source File Term Source Version</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1              OBI       http://data.bioontology.org/ontologies/OBI                  24</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2              EFO       http://data.bioontology.org/ontologies/EFO                 118</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3               UO                http://purl.obolibrary.org/obo/UO                &lt;NA&gt;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        NCBITaxon http://data.bioontology.org/ontologies/NCBITAXON                   6</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5               PO        http://data.bioontology.org/ontologies/PO                  10</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6              GMI                      http://gwas.gmi.oeaw.ac.at/                &lt;NA&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                          Term Source Description</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                                         Ontology for Biomedical Investigations</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                                                   Experimental Factor Ontology</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3                                                                  Unit Ontology</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 National Center for Biotechnology Information (NCBI) Organismal Classification</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                                                                 Plant Ontology</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6                                     Cataloque of Arabidopsis accessions at GMI</span></span></code></pre></div>
+<p>In a similar way all slots in an <code>ISA</code> object can be accessed and updated.</p>
+</div>
+<div id="processing-assay-files" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Processing assay files</h1>
+<p>The assay files may contain information about the files used to store the actual data for the assay. Per assay file two types of data files may be referred to: 1) the file(s) containing the raw data, and 2) the file(s) containing derived data.</p>
+<p>Looking at the assay tab file in our example data, we see that the Raw Data File column is empty, no raw data files are available. However, the Derived Data File shows the file <code>d_data.txt</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect assay tab.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>isaAFile <span class="ot">&lt;-</span> <span class="fu">aFiles</span>(isaObject1)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(isaAFile<span class="sc">$</span>a_study1.txt)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Sample Name Protocol REF Parameter Value[Organism part] Term Source REF Term Accession Number</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     sample1  Phenotyping                             NA              NA                    NA</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     sample2  Phenotyping                             NA              NA                    NA</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     sample3  Phenotyping                             NA              NA                    NA</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     sample4  Phenotyping                             NA              NA                    NA</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     sample5  Phenotyping                             NA              NA                    NA</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6     sample6  Phenotyping                             NA              NA                    NA</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Parameter Value[Trait Definition File] Assay Name Raw Data File        Protocol REF</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                                tdf.txt  assay1020            NA Data transformation</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                                tdf.txt     assay1            NA Data transformation</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3                                tdf.txt  assay1131            NA Data transformation</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4                                tdf.txt   assay569            NA Data transformation</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                                tdf.txt   assay293            NA Data transformation</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6                                tdf.txt   assay388            NA Data transformation</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Derived Data File</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        d_data.txt</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        d_data.txt</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        d_data.txt</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        d_data.txt</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        d_data.txt</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6        d_data.txt</span></span></code></pre></div>
+<p>To read the contents of the data files, either raw or derived, in the assay tab file, we can use the <code>processAssay()</code> function. The exact working of this function depends on the technology type of the assay. For most technology types the data files are read as plain <code>.txt</code> files assuming a tab-delimited format. Only for mass spectrometry and microarray data the files are read differently (see the sections below). As the output above shows, the assay file in the example has a Data Transformation technology and is therefore read as tab-delimited file.</p>
+<p>Before being able to process the assay file, i.e. read the data, we first have to extract the assay tabs using the <code>getAssayTabs()</code> function. This function extracts all the assay files from an <code>ISA</code> object and stores them as <code>assayTab</code> objects. These <code>assayTab</code> objects contain not only the content of the assay tab file, but also extra information, e.g. technology type.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get assay tabs for isaObject1.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>aTabObjects <span class="ot">&lt;-</span> <span class="fu">getAssayTabs</span>(isaObject1)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Process assay data.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>isaDat <span class="ot">&lt;-</span> <span class="fu">processAssay</span>(<span class="at">isaObject =</span> isaObject1,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">aTabObject =</span> aTabObjects<span class="sc">$</span>s_study1.txt<span class="sc">$</span>a_study1.txt,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">type =</span> <span class="st">&quot;derived&quot;</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Display first rows and columns.</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(isaDat[, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Assay Name      LD  LDV      SD     SDV FT10 FT16 FT22 Seed Dormancy Emco5</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   assay152 6.84105 32.6 93.0417 4.97494   74   87   89            NA    NA</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   assay279      NA   NA      NA      NA   NA   NA   NA            NA    NA</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   assay211      NA   NA      NA      NA   NA   NA   NA            NA    NA</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   assay256      NA   NA      NA      NA   NA   NA   NA            NA    NA</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5   assay907      NA   NA      NA      NA   NA   NA   NA            NA    NA</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6   assay948      NA   NA      NA      NA   NA   NA   NA            NA    NA</span></span></code></pre></div>
+<p>The data is now stored in <code>isaDat</code> and can be used for further analysis within <code>R</code>.</p>
+<div id="mass-spectrometry-assay-files" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> Mass spectrometry assay files</h2>
+<p>Mass spectrometry data is often stored in Network Common Data Form (NetCDF) files, i.e. in .CDF files. Assay data containing these data will be processed in a different way than regular assay data. To be able to do this the <a href="https://bioconductor.org/packages/release/bioc/html/xcms.html">xcms</a> package is required. This package is available from <a href="https://bioconductor.org/">Bioconductor</a>.</p>
+<p>As an example for the processing of mass spectrometry files we will use a subset of the quantitated LC/MS peaks from the spinal cords of 6 wild-type and 6 fatty acid amide hydrolase (FAAH) knockout mice described in <span class="citation">Saghatelian et al. (2004)</span>. A more extensive version of this data set is available in the <a href="http://www.bioconductor.org/packages/release/data/experiment/html/faahKO.html" class="uri">faahKO</a> data package on Bioconductor.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Read ISA-Tab files for faahKO.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>isaObject3 <span class="ot">&lt;-</span> <span class="fu">readISATab</span>(<span class="at">path =</span> <span class="fu">file.path</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/faahKO&quot;</span>, <span class="at">package =</span> <span class="st">&quot;isatabr&quot;</span>)))</span></code></pre></div>
+<p>After reading the ISA-Tab files, we can now process the mass spectrometry assay data. In this example the raw data is available, so when processing the assay we specify <code>type = &quot;raw&quot;</code>. The rest of the code is similar to the previous section.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get assay tabs for isaObject3.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>aTabObjects3 <span class="ot">&lt;-</span> <span class="fu">getAssayTabs</span>(isaObject3)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Process assay data.</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>isaDat3 <span class="ot">&lt;-</span> <span class="fu">processAssay</span>(<span class="at">isaObject =</span> isaObject3,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">aTabObject =</span> aTabObjects3<span class="sc">$</span>s_Proteomic_profiling_of_yeast.txt<span class="sc">$</span>a_metabolite.txt,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">type =</span> <span class="st">&quot;raw&quot;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Display output.</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>isaDat3</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; An &quot;xcmsSet&quot; object with 1 samples</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time range: 2506.1-4132.1 seconds (41.8-68.9 minutes)</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Mass range: 200.1-599.3129 m/z</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Peaks: 470 (about 470 per sample)</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Peak Groups: 0 </span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Sample classes:  </span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Feature detection:</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  o Peak picking performed on MS1.</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Profile settings: method = bin</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   step = 0.1</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Memory usage: 0.0804 MB</span></span></code></pre></div>
+<p>As the output shows, processing the mass spectrometry data gives an object of class <code>xcmsSet</code> from the <code>xcms</code> package. This object contains all available information from the .CDF file that was read and can be used for further analysis.</p>
+</div>
+<div id="microarray-assay-files" class="section level2" number="4.2">
+<h2 number="4.2"><span class="header-section-number">4.2</span> Microarray assay files</h2>
+<p>Microarray data is often stored in an Affymetrix Probe Results file. These <code>.CEL</code> files contain information on the probe set’s intensity values, and a probe set represents a gene. Assay data containing these data will be processed in a different way than regular assay data. To be able to do this the <a href="https://www.bioconductor.org/packages/release/bioc/html/affy.html">affy</a> package is required. This package is available from <a href="https://bioconductor.org/">Bioconductor</a>.</p>
+<p>Processing microarray data is done in a very similar way as processing mass spectrometry data, as described in the previous section. The main difference is that the resulting object will in this case be an object object of class <code>ExpressionSet</code>, which is used as input in many Bioconductor packages.</p>
+</div>
+</div>
+<div id="writing-files-in-the-isa-tab-format." class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Writing files in the ISA-Tab format.</h1>
+<p>After updating an <code>ISA</code> object, it can be written back to a directory using the <code>writeISAtab()</code> function. All content of the <code>ISA</code> object will be written to investigation, study and assay files following the ISA-Tab standard for file specification. By default the files are written to the current working directory, but the directory can be specified using the <code>path</code> argument.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Write content of ISA object to a temporary directory.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeISAtab</span>(<span class="at">isaObject =</span> isaObject1, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">path =</span> <span class="fu">tempdir</span>())</span></code></pre></div>
+<p>Note that existing files are always overwritten. Therefore, writing files to the same directory, from where the original files were read, will result in the original files being overwritten.</p>
+<p>Besides writing the full <code>ISA</code> object it is also possible to write only the investigation file , one or more study files or one or more assay files.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Write investigation file.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeInvestigationFile</span>(<span class="at">isaObject =</span> isaObject1,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">path =</span> <span class="fu">tempdir</span>())</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Write study file.</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">writeStudyFiles</span>(<span class="at">isaObject =</span> isaObject1,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">studyFilenames =</span> <span class="st">&quot;s_study1.txt&quot;</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">path =</span> <span class="fu">tempdir</span>())</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Write assay file.</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">writeAssayFiles</span>(<span class="at">isaObject =</span> isaObject1,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">assayFilenames =</span> <span class="st">&quot;a_study1.txt&quot;</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">path =</span> <span class="fu">tempdir</span>())</span></code></pre></div>
+<hr />
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Atwell2010" class="csl-entry">
+Atwell, Susanna, Yu S. Huang, Bjarni J. Vilhjálmsson, Glenda Willems, Matthew Horton, Yan Li, Dazhe Meng, et al. 2010. <span>“Genome-Wide Association Study of 107 Phenotypes in Arabidopsis Thaliana Inbred Lines.”</span> <em>Nature</em> 465 (7298): 627–31. <a href="https://doi.org/10.1038/nature08800">https://doi.org/10.1038/nature08800</a>.
+</div>
+<div id="ref-Saghatelian2004" class="csl-entry">
+Saghatelian, Alan, Sunia A. Trauger, Elizabeth J. Want, Edward G. Hawkins, Gary Siuzdak, and Benjamin F. Cravatt. 2004. <span>“Assignment of Endogenous Substrates to Enzymes by Global Metabolite Profiling.”</span> <em>Biochemistry</em> 43 (45): 14332–39. <a href="https://doi.org/10.1021/bi0480335">https://doi.org/10.1021/bi0480335</a>.
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
