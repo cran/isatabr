@@ -20,7 +20,7 @@ study(x) <- value
 
 \item{value}{A list of data.frames containing the study information.
 In each data.frame at least the following columns are present:
-\verb{Study Identifier}, \verb{Study Title}, \verb{Study Description}, \verb{Study Submission Date}, \verb{Study Public Release Date}, \verb{Study File Name}.}
+'Study Identifier', 'Study Title', 'Study Description', 'Study Submission Date', 'Study Public Release Date', 'Study File Name'.}
 }
 \value{
 A list of data.frames containing the study information.

@@ -20,7 +20,7 @@ sFacts(x) <- value
 
 \item{value}{A list of data.frames containing the study factors.
 In each data.frame at least the following columns are present:
-\verb{Study Factor Name}, \verb{Study Factor Type}, \verb{Study Factor Type Term Accession Number}, \verb{Study Factor Type Term Source REF}.}
+'Study Factor Name', 'Study Factor Type', 'Study Factor Type Term Accession Number', 'Study Factor Type Term Source REF'.}
 }
 \value{
 A list of data.frames containing the study factors.

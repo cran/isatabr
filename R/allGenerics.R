@@ -294,7 +294,7 @@ setGeneric("oSR", function(x) standardGeneric("oSR"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A data.frame containing the ontology Source Reference
 #' information. data.frame in which at least the following columns are present:
-#' `r paste0("``", oSRCols, "``", collapse = ", ")`.
+#' `r paste0("'", oSRCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname oSR
@@ -327,7 +327,7 @@ setGeneric("invest", function(x) standardGeneric("invest"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A data.frame containing the investigation information. A
 #' data.frame in which at least the following columns are present:
-#' `r paste0("``", investCols, "``", collapse = ", ")`.
+#' `r paste0("'", investCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname invest
@@ -361,7 +361,7 @@ setGeneric("iPubs", function(x) standardGeneric("iPubs"))
 #' @param value A data.frame containing the investigation publications
 #' information. A data.frame in which at least the following columns are
 #' present:
-#' `r paste0("``", iPubsCols, "``", collapse = ", ")`.
+#' `r paste0("'", iPubsCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname iPubs
@@ -395,7 +395,7 @@ setGeneric("iContacts", function(x) standardGeneric("iContacts"))
 #' @param value A data.frame containing the investigation contacts
 #' information. A data.frame in which at least the following columns are
 #' present:
-#' `r paste0("``", iContactsCols, "``", collapse = ", ")`.
+#' `r paste0("'", iContactsCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname iContacts
@@ -429,7 +429,7 @@ setGeneric("study", function(x) standardGeneric("study"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A list of data.frames containing the study information.
 #' In each data.frame at least the following columns are present:
-#' `r paste0("``", studyCols, "``", collapse = ", ")`.
+#' `r paste0("'", studyCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname study
@@ -463,7 +463,7 @@ setGeneric("sDD", function(x) standardGeneric("sDD"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A list of data.frames containing the study design descriptors.
 #' In each data.frame at least the following columns are present:
-#' `r paste0("``", sDDCols, "``", collapse = ", ")`.
+#' `r paste0("'", sDDCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname sDD
@@ -497,7 +497,7 @@ setGeneric("sPubs", function(x) standardGeneric("sPubs"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A list of data.frames containing the study publications.
 #' In each data.frame at least the following columns are present:
-#' `r paste0("``", sPubsCols, "``", collapse = ", ")`.
+#' `r paste0("'", sPubsCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname sPubs
@@ -531,7 +531,7 @@ setGeneric("sFacts", function(x) standardGeneric("sFacts"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A list of data.frames containing the study factors.
 #' In each data.frame at least the following columns are present:
-#' `r paste0("``", sFactsCols, "``", collapse = ", ")`.
+#' `r paste0("'", sFactsCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname sFacts
@@ -565,7 +565,7 @@ setGeneric("sAssays", function(x) standardGeneric("sAssays"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A list of data.frames containing the study assays.
 #' In each data.frame at least the following columns are present:
-#' `r paste0("``", sAssaysCols, "``", collapse = ", ")`.
+#' `r paste0("'", sAssaysCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname sAssays
@@ -599,7 +599,7 @@ setGeneric("sProts", function(x) standardGeneric("sProts"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A list of data.frames containing the study protocols.
 #' In each data.frame at least the following columns are present:
-#' `r paste0("``", sProtsCols, "``", collapse = ", ")`.
+#' `r paste0("'", sProtsCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #'
@@ -634,7 +634,7 @@ setGeneric("sContacts", function(x) standardGeneric("sContacts"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A list of data.frames containing the study contacts.
 #' In each data.frame at least the following columns are present:
-#' `r paste0("``", sContactsCols, "``", collapse = ", ")`.
+#' `r paste0("'", sContactsCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname sContacts
@@ -669,7 +669,7 @@ setGeneric("sFiles", function(x) standardGeneric("sFiles"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A list of data.frames containing the study files.
 #' In each data.frame at least the following columns are present:
-#' `r paste0("``", sFilesCols, "``", collapse = ", ")`.
+#' `r paste0("'", sFilesCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname sFiles
@@ -703,7 +703,7 @@ setGeneric("aFiles", function(x) standardGeneric("aFiles"))
 #' @param x An object of class \linkS4class{ISA}.
 #' @param value A list of data.frames containing the assay files.
 #' In each data.frame at least the following columns are present:
-#' `r paste0("``", aFilesCols, "``", collapse = ", ")`.
+#' `r paste0("'", aFilesCols, "'", collapse = ", ")`.
 #'
 #' @return The updated object of class \linkS4class{ISA}.
 #' @rdname aFiles

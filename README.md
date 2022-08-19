@@ -3,11 +3,11 @@
 
 # isatabr
 
-<!-- [![](https://www.r-pkg.org/badges/version/isatabr)](https://www.r-pkg.org/pkg/isatabr) -->
-<!-- [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/isatabr)](https://www.r-pkg.org/pkg/isatabr) -->
-
+[![](https://www.r-pkg.org/badges/version/isatabr)](https://www.r-pkg.org/pkg/isatabr)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/isatabr)](https://www.r-pkg.org/pkg/isatabr)
 [![R-CMD-check](https://github.com/Biometris/isatabr/workflows/R-CMD-check/badge.svg)](https://github.com/Biometris/isatabr/actions?workflow=R-CMD-check)
-[![codecov](https://codecov.io/gh/Biometris/isatabr/branch/master/graph/badge.svg)](https://codecov.io/gh/Biometris/isatabr)
+[![codecov](https://codecov.io/gh/Biometris/isatabr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Biometris/isatabr)
 
 **isatabr** is an R package for easily reading, modifying and writing
 files in the Investigation/Study/Assay (ISA) Abstract Model of the
@@ -15,16 +15,15 @@ metadata framework using the ISA tab-delimited (TAB) format.
 
 ## Installation
 
-<!-- * Install from CRAN: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- install.packages("isatabr") -->
-<!-- ``` -->
+-   Install from CRAN:
 
-### This package is still under development and code will be subject to changes
+``` r
+install.packages("isatabr")
+```
 
 -   Install latest development version from GitHub (requires
     [remotes](https://github.com/r-lib/remotes) package):
 
 ``` r
-remotes::install_github("Biometris/isatabr", dependencies = TRUE)
+remotes::install_github("Biometris/isatabr", ref = "develop", dependencies = TRUE)
 ```

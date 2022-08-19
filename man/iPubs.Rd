@@ -21,7 +21,7 @@ iPubs(x) <- value
 \item{value}{A data.frame containing the investigation publications
 information. A data.frame in which at least the following columns are
 present:
-\verb{Investigation PubMed ID}, \verb{Investigation Publication DOI}, \verb{Investigation Publication Author List}, \verb{Investigation Publication Title}, \verb{Investigation Publication Status}, \verb{Investigation Publication Status Term Accession Number}, \verb{Investigation Publication Status Term Source REF}.}
+'Investigation PubMed ID', 'Investigation Publication DOI', 'Investigation Publication Author List', 'Investigation Publication Title', 'Investigation Publication Status', 'Investigation Publication Status Term Accession Number', 'Investigation Publication Status Term Source REF'.}
 }
 \value{
 A data.frame containing the investigation publications information.

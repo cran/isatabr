@@ -20,7 +20,7 @@ sProts(x) <- value
 
 \item{value}{A list of data.frames containing the study protocols.
 In each data.frame at least the following columns are present:
-\verb{Study Protocol Name}, \verb{Study Protocol Type}, \verb{Study Protocol Type Term Accession Number}, \verb{Study Protocol Type Term Source REF}, \verb{Study Protocol Description}, \verb{Study Protocol URI}, \verb{Study Protocol Version}, \verb{Study Protocol Parameters Name}, \verb{Study Protocol Parameters Name Term Accession Number}, \verb{Study Protocol Parameters Name Term Source REF}, \verb{Study Protocol Components Name}, \verb{Study Protocol Components Type}, \verb{Study Protocol Components Type Term Accession Number}, \verb{Study Protocol Components Type Term Source REF}.}
+'Study Protocol Name', 'Study Protocol Type', 'Study Protocol Type Term Accession Number', 'Study Protocol Type Term Source REF', 'Study Protocol Description', 'Study Protocol URI', 'Study Protocol Version', 'Study Protocol Parameters Name', 'Study Protocol Parameters Name Term Accession Number', 'Study Protocol Parameters Name Term Source REF', 'Study Protocol Components Name', 'Study Protocol Components Type', 'Study Protocol Components Type Term Accession Number', 'Study Protocol Components Type Term Source REF'.}
 }
 \value{
 A list of data.frames containing the study protocols.

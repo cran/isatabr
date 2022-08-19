@@ -20,7 +20,7 @@ sContacts(x) <- value
 
 \item{value}{A list of data.frames containing the study contacts.
 In each data.frame at least the following columns are present:
-\verb{Study Person Last Name}, \verb{Study Person First Name}, \verb{Study Person Mid Initials}, \verb{Study Person Email}, \verb{Study Person Phone}, \verb{Study Person Fax}, \verb{Study Person Address}, \verb{Study Person Affiliation}, \verb{Study Person Roles}, \verb{Study Person Roles Term Accession Number}, \verb{Study Person Roles Term Source REF}.}
+'Study Person Last Name', 'Study Person First Name', 'Study Person Mid Initials', 'Study Person Email', 'Study Person Phone', 'Study Person Fax', 'Study Person Address', 'Study Person Affiliation', 'Study Person Roles', 'Study Person Roles Term Accession Number', 'Study Person Roles Term Source REF'.}
 }
 \value{
 A list of data.frames containing the study contacts.

@@ -20,7 +20,7 @@ oSR(x) <- value
 
 \item{value}{A data.frame containing the ontology Source Reference
 information. data.frame in which at least the following columns are present:
-\verb{Term Source Name}, \verb{Term Source File}, \verb{Term Source Version}, \verb{Term Source Description}.}
+'Term Source Name', 'Term Source File', 'Term Source Version', 'Term Source Description'.}
 }
 \value{
 A data.frame containing the ontology Source Reference information.

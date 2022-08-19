@@ -20,7 +20,7 @@ sPubs(x) <- value
 
 \item{value}{A list of data.frames containing the study publications.
 In each data.frame at least the following columns are present:
-\verb{Study PubMed ID}, \verb{Study Publication DOI}, \verb{Study Publication Author List}, \verb{Study Publication Title}, \verb{Study Publication Status}, \verb{Study Publication Status Term Accession Number}, \verb{Study Publication Status Term Source REF}.}
+'Study PubMed ID', 'Study Publication DOI', 'Study Publication Author List', 'Study Publication Title', 'Study Publication Status', 'Study Publication Status Term Accession Number', 'Study Publication Status Term Source REF'.}
 }
 \value{
 A list of data.frames containing the study publications.

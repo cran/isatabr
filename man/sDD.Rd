@@ -20,7 +20,7 @@ sDD(x) <- value
 
 \item{value}{A list of data.frames containing the study design descriptors.
 In each data.frame at least the following columns are present:
-\verb{Study Design Type}, \verb{Study Design Type Term Accession Number}, \verb{Study Design Type Term Source REF}.}
+'Study Design Type', 'Study Design Type Term Accession Number', 'Study Design Type Term Source REF'.}
 }
 \value{
 A list of data.frames containing the study design descriptors.

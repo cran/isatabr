@@ -20,7 +20,7 @@ sFiles(x) <- value
 
 \item{value}{A list of data.frames containing the study files.
 In each data.frame at least the following columns are present:
-\verb{Source Name}, \verb{Term Source REF}, \verb{Sample Name}.}
+'Source Name', 'Term Source REF', 'Sample Name'.}
 }
 \value{
 A list of data.frames containing the study files.

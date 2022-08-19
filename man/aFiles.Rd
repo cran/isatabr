@@ -19,7 +19,8 @@ aFiles(x) <- value
 \item{x}{An object of class \linkS4class{ISA}.}
 
 \item{value}{A list of data.frames containing the assay files.
-In each data.frame at least the following columns are present:\if{html}{\out{<div class=".">}}\preformatted{}\if{html}{\out{</div>}}}
+In each data.frame at least the following columns are present:
+''.}
 }
 \value{
 A list of data.frames containing the assay files.

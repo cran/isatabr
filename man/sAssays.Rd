@@ -20,7 +20,7 @@ sAssays(x) <- value
 
 \item{value}{A list of data.frames containing the study assays.
 In each data.frame at least the following columns are present:
-\verb{Study Assay Measurement Type}, \verb{Study Assay Measurement Type Term Accession Number}, \verb{Study Assay Measurement Type Term Source REF}, \verb{Study Assay Technology Type}, \verb{Study Assay Technology Type Term Accession Number}, \verb{Study Assay Technology Type Term Source REF}, \verb{Study Assay Technology Platform}, \verb{Study Assay File Name}.}
+'Study Assay Measurement Type', 'Study Assay Measurement Type Term Accession Number', 'Study Assay Measurement Type Term Source REF', 'Study Assay Technology Type', 'Study Assay Technology Type Term Accession Number', 'Study Assay Technology Type Term Source REF', 'Study Assay Technology Platform', 'Study Assay File Name'.}
 }
 \value{
 A list of data.frames containing the study assays.

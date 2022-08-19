@@ -20,7 +20,7 @@ invest(x) <- value
 
 \item{value}{A data.frame containing the investigation information. A
 data.frame in which at least the following columns are present:
-\verb{Investigation Identifier}, \verb{Investigation Title}, \verb{Investigation Description}, \verb{Investigation Submission Date}, \verb{Investigation Public Release Date}.}
+'Investigation Identifier', 'Investigation Title', 'Investigation Description', 'Investigation Submission Date', 'Investigation Public Release Date'.}
 }
 \value{
 A data.frame containing the investigation information.

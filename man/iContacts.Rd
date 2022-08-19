@@ -21,7 +21,7 @@ iContacts(x) <- value
 \item{value}{A data.frame containing the investigation contacts
 information. A data.frame in which at least the following columns are
 present:
-\verb{Investigation Person Last Name}, \verb{Investigation Person First Name}, \verb{Investigation Person Mid Initials}, \verb{Investigation Person Email}, \verb{Investigation Person Phone}, \verb{Investigation Person Fax}, \verb{Investigation Person Address}, \verb{Investigation Person Affiliation}, \verb{Investigation Person Roles}, \verb{Investigation Person Roles Term Accession Number}, \verb{Investigation Person Roles Term Source REF}.}
+'Investigation Person Last Name', 'Investigation Person First Name', 'Investigation Person Mid Initials', 'Investigation Person Email', 'Investigation Person Phone', 'Investigation Person Fax', 'Investigation Person Address', 'Investigation Person Affiliation', 'Investigation Person Roles', 'Investigation Person Roles Term Accession Number', 'Investigation Person Roles Term Source REF'.}
 }
 \value{
 A data.frame containing the investigation contacts information.
